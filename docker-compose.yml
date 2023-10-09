@@ -31,7 +31,7 @@ services:
     ports:
       - 8000:3000
     volumes:
-      - /front:/app
+      - ./front:/app
     stdin_open: true
     tty: true
 volumes:
