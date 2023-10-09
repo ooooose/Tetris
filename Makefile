@@ -13,5 +13,8 @@ ps:
 logs:
 	docker-compose logs -f api
 
+shell:
+	docker-compose exec api bash
+
 install:
 	docker-compose --rm front npm install
