@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-DATABASE_URL = "mysql+aiomysql://root@db:3306/demo?charset=utf8"
+DATABASE_URL = "postgresql://postgres:password@postgres-db:5432/postgres"
 
 # データベースエンジンを作成
 engine = create_engine(DATABASE_URL)
