@@ -1,7 +1,10 @@
-import { useEffect } from "react";
+import { useCallback, useMemo } from 'react';
 import styled from "styled-components";
-import { findBlock, COLOR_NAME } from "@/features/blocks";
+import { getTiles } from "@/features/blocks";
+import { COLOR_NAME } from "@/features/blocks/blocks-constants";
 import useBlocks from "@/hooks/useBlocks";
+import useTimer from '@/hooks/useTimer';
+import useKeyHandler from '@/hooks/useKeyHandler';
 
 const BOARD_WIDTH = 10;
 const BOARD_HEIGHT = 25;
@@ -42,51 +45,54 @@ const Tile = styled.div`
   }
 `;
 
-const TileLine = styled.div`
-  line-height: 0;
-`;
-
-const Board = () => {
-  const { blocks, fallingBlock, nextStep } = useBlocks(
+function Board() {
+  const { tiles, fallingBlock, isGameOvered, nextStep, move, fall } = useBlocks(
     BOARD_WIDTH,
     BOARD_HEIGHT
   );
-  //TODO: 下の使用方法を考える。
-  const blocksOnBoard = [
-    ...blocks,
-    ...(fallingBlock === null ? [] : [fallingBlock]),
-  ];
 
-  //TODO: findBlockの使い道を考える。
-  const createTile = (x: number, y: number) => {
-    const block = findBlock(blocksOnBoard, x, y);
-    const classNames = block ? COLOR_NAME[block.type] : '';
+  useTimer(nextStep);
 
-    return <Tile key={y + BOARD_WIDTH * x} className={classNames} />;
-  }
-  
+  useKeyHandler(nextStep, move, fall);
 
-  const createLine = (i: number) =>
-    [...Array(BOARD_WIDTH).keys()].map((j) => createTile(j, i));
+  const tilesOnBoard = useMemo(
+    () => [...tiles, ...(fallingBlock === null ? [] : getTiles(fallingBlock))],
+    [fallingBlock, tiles]
+  );
 
-  const lines = [...Array(BOARD_HEIGHT).keys()].map((i) => (
-    <TileLine key={i}>
-      {createLine(i)}
-    </TileLine>
-  ));
+  const createTile = useCallback(
+    (x: number, y: number) => {
+      const blockType = tilesOnBoard.find(
+        (tile) => tile.x === x && tile.y === y
+      )?.type;
+      const classNames = blockType ? COLOR_NAME[blockType] : '';
 
-  useEffect(() => {
-    window.addEventListener('keydown', nextStep);
+      return <Tile key={y + BOARD_WIDTH * x} className={classNames} />;
+    },
+    [tilesOnBoard]
+  );
 
-    return () => {
-      window.removeEventListener('keydown', nextStep);
-    }
-  })
+  const createLine = useCallback(
+    (i: number) => [...Array(BOARD_WIDTH).keys()].map((j) => createTile(j, i)),
+    [createTile]
+  );
 
+  const lines = useMemo(
+    () =>
+      [...Array(BOARD_HEIGHT).keys()].map((i) => (
+        <div className="TileLine" key={i}>
+          {createLine(i)}
+        </div>
+      )),
+    [createLine]
+  );
 
   return (
-    <BoardMain>{lines}</BoardMain>
-  )
+    <div>
+      {/* {isGameOvered ? <GameOver /> : null} */}
+      <BoardMain>{lines}</BoardMain>
+    </div>
+  );
 }
 
 export default Board;

@@ -1,29 +1,101 @@
-import { useState } from "react";
-import { Block, getNextBlock } from "@/features/blocks";
-
-const DUMMY_BLOCKS: Block[] = [
-  { x: 1, y: 1, type: 'i' },
-  { x: 1, y: 3, type: 'o' },
-  { x: 4, y: 0, type: 's' },
-  { x: 3, y: 2, type: 'z' },
-  { x: 7, y: 0, type: 'j' },
-  { x: 5, y: 3, type: 'l' },
-  { x: 7, y: 2, type: 't' },
-];
+import { useCallback, useState } from 'react';
+import {
+  getNextBlock,
+  moveBlock,
+  getCompletedRows,
+  deleteRows,
+  getTiles,
+} from '../features/blocks';
+import { Block, MoveType, Tile } from '../features/blocks/blocks-types';
 
 const useBlocks = (boardWidth: number, boardHeight: number) => {
-  const [blocks] = useState(DUMMY_BLOCKS);
+  const [tiles, setTiles] = useState<Tile[]>([]);
   const [fallingBlock, setFallingBlock] = useState<Block | null>(null);
-  
-  const nextStep = () => {
-    setFallingBlock(getNextBlock(fallingBlock, boardWidth, boardHeight));
-  }
+  const [isGameOvered, setIsGameOvered] = useState(false);
+
+  const nextStep = useCallback(() => {
+    const movedBlock = getNextBlock(
+      fallingBlock,
+      boardWidth,
+      boardHeight,
+      tiles
+    );
+
+    if (movedBlock === null && fallingBlock != null) {
+      let nextTiles = [...tiles, ...getTiles(fallingBlock)];
+
+      const completedRows = getCompletedRows(nextTiles, boardWidth);
+
+      if (completedRows.length) {
+        nextTiles = deleteRows(nextTiles, completedRows);
+      }
+
+      setTiles(nextTiles);
+    }
+
+    if (
+      movedBlock !== null &&
+      Math.max(...tiles.map(({ y }) => y)) >= boardHeight
+    ) {
+      setIsGameOvered(true);
+    }
+
+    setFallingBlock(movedBlock);
+  }, [boardWidth, boardHeight, fallingBlock, tiles]);
+
+  const move = useCallback(
+    (m: MoveType) => {
+      if (fallingBlock === null) {
+        return;
+      }
+
+      setFallingBlock(
+        moveBlock(fallingBlock, m, boardWidth, tiles) || fallingBlock
+      );
+    },
+    [boardWidth, fallingBlock, tiles]
+  );
+
+  /**
+   * 最下層までブロックを落とす.
+   */
+  const fall = useCallback(() => {
+    if (fallingBlock === null) {
+      return;
+    }
+
+    /**
+     * 最下層に到達するまで繰り返し更新する.
+     */
+    let currentBlock = { ...fallingBlock };
+
+    // whileループと等価だが、不具合による無限ループを防ぐためにforループで記述する.
+    for (let i = 0; i < boardHeight; i++) {
+      const movedBlock = getNextBlock(
+        currentBlock,
+        boardWidth,
+        boardHeight,
+        tiles
+      );
+
+      if (!movedBlock) {
+        break;
+      }
+
+      currentBlock = movedBlock;
+    }
+
+    setFallingBlock(currentBlock);
+  }, [boardWidth, boardHeight, fallingBlock, setFallingBlock, tiles]);
 
   return {
-    blocks,
+    tiles,
     fallingBlock,
+    isGameOvered,
     nextStep,
-  }
-}
+    move,
+    fall,
+  };
+};
 
 export default useBlocks;
