@@ -96,6 +96,16 @@ export const BLOCK_SHAPES: BlockShapeType = {
   },
 } as const;
 
+export const COLOR_NAME = {
+  i: 'block-type-i',
+  o: 'block-type-o',
+  s: 'block-type-s',
+  z: 'block-type-z',
+  j: 'block-type-j',
+  l: 'block-type-l',
+  t: 'block-type-t',
+} as const;
+
 export const findBlock = (
   blocks: Block[],
   x: number,

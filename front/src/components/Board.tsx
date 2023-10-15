@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import styled from "styled-components";
-import { findBlock } from "@/features/blocks";
+import { findBlock, COLOR_NAME } from "@/features/blocks";
 import useBlocks from "@/hooks/useBlocks";
 
 const BOARD_WIDTH = 10;
@@ -18,6 +18,28 @@ const Tile = styled.div`
   width: 20px;
   height: 20px;
   backgroud-color: green
+
+  &.block-type-i {
+    background-color: deepskyblue;
+  }
+  &.block-type-o {
+    background-color: yellow;
+  }
+  &.block-type-s {
+    background-color: mediumseagreen;
+  }
+  &.block-type-z {
+    background-color: red;
+  }
+  &.block-type-j {
+    background-color: royalblue;
+  }
+  &.block-type-l {
+    background-color: goldenrod;
+  }
+  &.block-type-t {
+    background-color: blueviolet;
+  }
 `;
 
 const TileLine = styled.div`
@@ -29,14 +51,20 @@ const Board = () => {
     BOARD_WIDTH,
     BOARD_HEIGHT
   );
+  //TODO: 下の使用方法を考える。
   const blocksOnBoard = [
     ...blocks,
     ...(fallingBlock === null ? [] : [fallingBlock]),
   ];
+
+  //TODO: findBlockの使い道を考える。
   const createTile = (x: number, y: number) => {
     const block = findBlock(blocksOnBoard, x, y);
-    return <Tile key={y + BOARD_WIDTH * x} />;
+    const classNames = block ? COLOR_NAME[block.type] : '';
+
+    return <Tile key={y + BOARD_WIDTH * x} className={classNames} />;
   }
+  
 
   const createLine = (i: number) =>
     [...Array(BOARD_WIDTH).keys()].map((j) => createTile(j, i));
