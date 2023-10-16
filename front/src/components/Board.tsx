@@ -80,7 +80,7 @@ function Board() {
   const lines = useMemo(
     () =>
       [...Array(BOARD_HEIGHT).keys()].map((i) => (
-        <div className="TileLine" key={i}>
+        <div key={i}>
           {createLine(i)}
         </div>
       )),

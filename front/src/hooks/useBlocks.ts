@@ -69,7 +69,6 @@ const useBlocks = (boardWidth: number, boardHeight: number) => {
      */
     let currentBlock = { ...fallingBlock };
 
-    // whileループと等価だが、不具合による無限ループを防ぐためにforループで記述する.
     for (let i = 0; i < boardHeight; i++) {
       const movedBlock = getNextBlock(
         currentBlock,
