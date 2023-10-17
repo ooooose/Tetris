@@ -1,9 +1,10 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from routers import user
 
 app = FastAPI()
 
-//TODO: URLは環境変数として管理するよう修正
+# TODO: URLは環境変数として管理するよう修正
 origins = [
   "https://localhost:8000",
 ]
@@ -11,9 +12,9 @@ origins = [
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-    allow_creditionals=True,
+    allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"]
+    allow_headers=["*"],
 )
 
 app.include_router(user.router)
