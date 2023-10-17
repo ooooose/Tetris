@@ -6,7 +6,7 @@ app = FastAPI()
 
 # TODO: URLは環境変数として管理するよう修正
 origins = [
-  "https://localhost:8000",
+  "http://localhost:8000",
 ]
 
 app.add_middleware(
