@@ -1,24 +1,16 @@
-import { useGetUsers } from "@/stores/useUsers/getUsers"
-
+import { Center, Box, Text } from "@chakra-ui/react";
+import RankingTable from "@/components/RankingTable";
 
 export default function Home() {
-  const { data: users } = useGetUsers();
-  if (!users) return <div>Loading...</div>;
   return (
     <>
-      <h1>Hello Tetris!</h1>
-      
-      <div>
-        {users.map((user) => {
-          return (
-            <div key={user.id}>
-              <p>{user.name}</p>
-              <br />
-            </div>
-          )
-        })}
-
-      </div>
+      <Center display="flex" flexDirection="column" height="100vh">
+        <Text fontSize="md" fontWeight="bold">Hello Tetris!</Text>
+        
+        <Box>
+          <RankingTable />
+        </Box>
+      </Center>
     </>
   )
 }
