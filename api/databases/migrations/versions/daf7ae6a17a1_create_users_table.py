@@ -23,6 +23,9 @@ def upgrade() -> None:
         'users',
         sa.Column('id', sa.Integer, primary_key=True),
         sa.Column('name', sa.String(255), nullable=False),
+        sa.Column('email', sa.String(255), unique=True, nullable=False),
+        # ハッシュ化したものなのでTextの方がよい？
+        sa.Column('password', sa.String(255), nullable=False),
         sa.Column('score', sa.Integer, nullable=False),
         sa.Column('created_at', sa.DateTime, nullable=False),
         sa.Column('updated_at', sa.DateTime, nullable=False),
