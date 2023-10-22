@@ -1,6 +1,5 @@
 from fastapi import HTTPException
-from api.schemas.user import UserOrm
-from api.schemas.user import User
+from schemas.user import User, UserOrm
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -13,6 +12,16 @@ class UserRepository:
         emailと一致するUserモデルのインスタンスを返す
         """
         user = self.session.scalar(select(User).where(User.email == email))
+        if user is None:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        return user
+
+    def find_user_by_id(self, id: int) -> UserOrm:
+        """
+        idと一致するUserモデルのインスタンスを返す
+        """
+        user = self.session.scalar(select(User).where(User.id == id))
         if user is None:
             raise HTTPException(status_code=404, detail="User not found")
 
