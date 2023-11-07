@@ -1,15 +1,16 @@
-import { Center, Box, Text } from "@chakra-ui/react";
-import RankingTable from "@/components/RankingTable";
+import { Center, Box, Text, Button, VStack } from "@chakra-ui/react";
+import NextLink from 'next/link';
+
 
 export default function Home() {
   return (
     <>
       <Center display="flex" flexDirection="column" height="100vh">
-        <Text fontSize="md" fontWeight="bold">Hello Tetris!</Text>
-        
-        <Box>
-          <RankingTable />
-        </Box>
+        <Text fontSize="90px" fontWeight="bold">Hello Tetris!</Text>
+        <VStack >
+          
+          <Button as={NextLink} href={'/signup'}>サインアップへ</Button>
+        </VStack>
       </Center>
     </>
   )
