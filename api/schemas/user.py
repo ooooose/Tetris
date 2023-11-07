@@ -6,7 +6,12 @@ class UserBase(BaseModel):
     score: int = Field(default=0)
 
 class User(UserBase):
-    pass
+    email: str
+    password: str
+
+class LoginUser(BaseModel):
+    email: str
+    password: str
 
 class UserOrm(UserBase):
     id: int
@@ -14,4 +19,4 @@ class UserOrm(UserBase):
     updated_at: datetime
 
     class Config:
-        orm_mode=True
+        from_attributes=True
