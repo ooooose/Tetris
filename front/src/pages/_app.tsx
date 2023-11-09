@@ -1,6 +1,6 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
-import { Providers } from '@/providers/ChakraProviders'
+import { Providers } from '@/providers/Providers'
 
 export default function App({ Component, pageProps }: AppProps) {
   return(

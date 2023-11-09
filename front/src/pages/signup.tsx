@@ -5,8 +5,6 @@ export default function SignUp() {
   return (
     <>
       <Center display="flex" flexDirection="column" height="100vh">
-        <Text fontSize="90px" fontWeight="bold">Hello Tetris!</Text>
-        
         <Box>
           <AuthForm />
         </Box>
