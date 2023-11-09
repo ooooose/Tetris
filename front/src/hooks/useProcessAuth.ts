@@ -33,6 +33,7 @@ export const useProcessAuth = () => {
           })
         )
         .catch(() => {
+          setName('')
           setPw('')
           setEmail('')
         })

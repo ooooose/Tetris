@@ -13,7 +13,7 @@ export const useMutateAuth = () => {
     async (user: AuthUser) => await apiClient.apiPost(`${process.env.NEXT_PUBLIC_API_URL}/login`, user),
     {
       onSuccess: () => {
-        router.push('/games')
+        router.push('/menu')
       },
       onError: (err: any) => {
         alert(`${err.response.data.detail}\n${err.message}`)
