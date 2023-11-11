@@ -28,6 +28,7 @@ async def get_ranking(db: Session = Depends(get_db)):
 def get_csrf_token(csrf_protect: CsrfProtect = Depends()):
     csrf_token = csrf_protect.generate_csrf()
     res = {'csrf_token': csrf_token}
+    print(res)
     return res
 
 @router.post("/register", response_model=UserOrm)
@@ -39,7 +40,9 @@ async def signup(
     csrf_token = csrf_protect.get_csrf_from_headers(request.headers)
     csrf_protect.validate_csrf(csrf_token)
     user = jsonable_encoder(user)
+    print(user)
     new_user = await UserUseCase(session=session).db_signup(data=user)
+    print(new_user)
     return new_user
 
 @router.post("/login", response_model=SuccessMsg)
