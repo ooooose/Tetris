@@ -13,8 +13,3 @@ export interface AuthUser {
   email: string;
   password: string;
 }
-
-export interface CsrfToken {
-  csrf_token: string;
-}
-

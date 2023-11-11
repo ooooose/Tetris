@@ -75,7 +75,7 @@ const AuthForm = () => {
             disabled={!email || !pw}
             type="submit"
           >
-            { isLogin ? "Login" : "Sign Up" }
+            { isLogin ? "ログイン" : "新規登録" }
           </button>
         </div>
       </form>

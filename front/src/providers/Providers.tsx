@@ -3,6 +3,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { Provider } from 'react-redux';
 import { store } from '@/stores/app/store';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { CsrfProviders } from './CsrfProviders';
 
 export function Providers({ children }: { children: React.ReactNode }) {
     const queryClient = new QueryClient({
@@ -19,7 +20,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
             <QueryClientProvider client={queryClient}>
                 <Provider store={store}>
                     <ChakraProvider>
-                        {children}
+                        <CsrfProviders>
+                            {children}
+                        </CsrfProviders>
                     </ChakraProvider>
                 </Provider>
             </QueryClientProvider>

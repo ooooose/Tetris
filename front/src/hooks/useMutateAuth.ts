@@ -29,6 +29,7 @@ export const useMutateAuth = () => {
     {
       onError: (err: any) => {
         alert(`${err.response.data.detail}\n${err.message}`)
+        console.log(err.response.data.detail)
         if (err.response.data.detail === 'The CSRF token has expired.') {
           dispatch(toggleCsrfState())
         }
