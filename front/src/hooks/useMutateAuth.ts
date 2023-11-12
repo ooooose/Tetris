@@ -4,13 +4,16 @@ import { useAppDispatch } from '@/stores/app/hooks'
 import { toggleCsrfState } from '@/slices/appSlice'
 import { User, AuthUser } from '@/types/users'
 import { apiClient } from '@/utils/api-client'
+import axios from 'axios'
 
 export const useMutateAuth = () => {
   const router = useRouter()
   const dispatch = useAppDispatch()
 
   const loginMutation = useMutation(
-    async (user: AuthUser) => await apiClient.apiPost(`${process.env.NEXT_PUBLIC_API_URL}/login`, user),
+    async (user: AuthUser) => await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/login`, user, {
+      withCredentials: true,
+    }),
     {
       onSuccess: () => {
         router.push('/menu')
@@ -25,7 +28,7 @@ export const useMutateAuth = () => {
   )
 
   const registerMutation = useMutation(
-    async (user: User) => await apiClient.apiPost(`${process.env.NEXT_PUBLIC_API_URL}/register`, user),
+    async (user: User) => await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/register`, user),
     {
       onError: (err: any) => {
         alert(`${err.response.data.detail}\n${err.message}`)
@@ -38,7 +41,9 @@ export const useMutateAuth = () => {
   )
 
   const logoutMutation = useMutation(
-    async () => await apiClient.apiPost(`${process.env.NEXT_PUBLIC_API_URL}/logout`),
+    async () => await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/logout`, {}, {
+      withCredentials: true,
+    }),
     {
       onSuccess: () => {
         router.push('/')
