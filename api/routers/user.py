@@ -1,5 +1,6 @@
 from typing import List
 from fastapi import APIRouter, Response, Request, Depends, HTTPException
+from fastapi.encoders import jsonable_encoder
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -39,7 +40,7 @@ async def signup(
     csrf_token = csrf_protect.get_csrf_from_headers(request.headers)
     csrf_protect.validate_csrf(csrf_token)
     user = jsonable_encoder(user)
-    new_user = await UserUseCase(session=session).db_signup(data=user)
+    new_user = UserUseCase(session=session).db_signup(data=user)
     return new_user
 
 @router.post("/login", response_model=SuccessMsg)
@@ -52,7 +53,7 @@ async def login(
     csrf_token = csrf_protect.get_csrf_from_headers(request.headers)
     csrf_protect.validate_csrf(csrf_token)
     user = jsonable_encoder(user)
-    token = await UserUseCase(session=session).db_login(data=user)
+    token = UserUseCase(session=session).db_login(data=user)
     response.set_cookie(
         key="access_token", value=f"Bearer {token}", httponly=True, samesite="none", secure=True)
     return {"message": "Successfully logged-in"}
