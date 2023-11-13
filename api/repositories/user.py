@@ -33,7 +33,6 @@ class UserRepository:
         """
         userを登録
         """
-        print(user_data)
         user = User(**user_data)
         self.session.add(user)
         self.session.commit()

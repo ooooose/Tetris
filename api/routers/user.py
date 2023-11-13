@@ -40,7 +40,7 @@ async def signup(
     csrf_token = csrf_protect.get_csrf_from_headers(request.headers)
     csrf_protect.validate_csrf(csrf_token)
     user = jsonable_encoder(user)
-    new_user = await UserUseCase(session=session).db_signup(data=user)
+    new_user = UserUseCase(session=session).db_signup(data=user)
     return new_user
 
 @router.post("/login", response_model=SuccessMsg)
