@@ -1,5 +1,4 @@
 import React from 'react';
-// import { useProcessAuth } from "../hooks/useProcessAuth";
 import { useProcessAuth } from '@/hooks/useProcessAuth';
 import { Link } from '@chakra-ui/react';
 

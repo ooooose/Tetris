@@ -3,7 +3,6 @@ import { useMutation } from 'react-query';
 import { useAppDispatch } from '@/stores/app/hooks';
 import { toggleCsrfState } from '@/slices/appSlice';
 import { User, AuthUser } from '@/types/users';
-import { apiClient } from '@/utils/api-client';
 import axios from 'axios';
 
 export const useMutateAuth = () => {

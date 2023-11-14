@@ -1,4 +1,5 @@
-import { Center, Box, Text, Button, VStack } from '@chakra-ui/react';
+import React from 'react';
+import { Center, Text, Button, VStack } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
 export default function Home() {

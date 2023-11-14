@@ -1,3 +1,4 @@
+import React from 'react';
 import { CacheProvider } from '@chakra-ui/next-js';
 import { ChakraProvider } from '@chakra-ui/react';
 import { Provider } from 'react-redux';

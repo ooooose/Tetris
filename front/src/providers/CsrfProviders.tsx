@@ -1,9 +1,8 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import axiosBase from 'axios';
 import { CsrfToken } from '@/types/csrf';
 import { selectCsrfState } from '@/slices/appSlice';
 import { useAppSelector } from '@/stores/app/hooks';
-import { apiClient } from '@/utils/api-client';
 import axios from 'axios';
 
 export function CsrfProviders({ children }: { children: React.ReactNode }) {

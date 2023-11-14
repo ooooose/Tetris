@@ -1,4 +1,5 @@
-import { Box, Text, Button, Link } from '@chakra-ui/react';
+import React from 'react';
+import { Box, Text, Link } from '@chakra-ui/react';
 import { useProcessAuth } from '@/hooks/useProcessAuth';
 
 const Header = () => {

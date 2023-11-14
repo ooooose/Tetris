@@ -1,3 +1,4 @@
+import React from 'react';
 import { Center, Text, Box } from '@chakra-ui/react';
 import Header from '@/components/Header';
 
