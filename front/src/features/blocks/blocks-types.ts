@@ -20,7 +20,7 @@ export type BlockShapeType = Readonly<{
         Readonly<[number, number]>,
         Readonly<[number, number]>,
         Readonly<[number, number]>,
-        Readonly<[number, number]>
+        Readonly<[number, number]>,
       ]
     >;
     center: Readonly<[number, number]>;

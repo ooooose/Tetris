@@ -18,3 +18,9 @@ shell:
 
 install:
 	docker-compose --rm front npm install
+
+lint:
+	docker-compose run --rm front npm run lint
+
+fix:
+	docker-compose run --rm front npm run fix

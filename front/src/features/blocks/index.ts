@@ -1,5 +1,5 @@
-import { BLOCK_SHAPES, BLOCK_TYPES } from "./blocks-constants";
-import { Block, MoveType, Tile, Turn } from "./blocks-types";
+import { BLOCK_SHAPES, BLOCK_TYPES } from './blocks-constants';
+import { Block, MoveType, Tile, Turn } from './blocks-types';
 
 export const getTiles = (block: Block): Tile[] => {
   const blockShape = BLOCK_SHAPES[block.type];
@@ -11,8 +11,8 @@ export const getTiles = (block: Block): Tile[] => {
         tile[1],
         blockShape.center[0],
         blockShape.center[1],
-        block.turn
-      )
+        block.turn,
+      ),
     )
     .map(([x, y]) => ({
       x: block.x + x,
@@ -25,7 +25,7 @@ export const getNextBlock = (
   fallingBlock: Block | null,
   boardWidth: number,
   boardHeight: number,
-  tiles: Tile[]
+  tiles: Tile[],
 ): Block | null => {
   if (fallingBlock === null) {
     // 新しいブロックを作成する.
@@ -64,7 +64,7 @@ export const turnOnce = (
   x: number,
   y: number,
   centerX: number,
-  centerY: number
+  centerY: number,
 ): [number, number] => [centerX + y - centerY, centerY - (x - centerX)];
 
 export const turn = (
@@ -72,7 +72,7 @@ export const turn = (
   y: number,
   centerX: number,
   centerY: number,
-  turnVal: Turn
+  turnVal: Turn,
 ): [number, number] => {
   let res: [number, number] = [x, y];
   for (let i = 0; i < turnVal; i++) {
@@ -85,7 +85,7 @@ export const moveBlock = (
   block: Block,
   move: MoveType,
   boardWidth: number,
-  tiles: Tile[]
+  tiles: Tile[],
 ): Block | null => {
   const movedBlock = (() => {
     switch (move) {
@@ -131,7 +131,7 @@ export const moveBlock = (
  */
 export const getCompletedRows = (
   tiles: Tile[],
-  boardWidth: number
+  boardWidth: number,
 ): number[] => {
   return (
     // 行一覧
@@ -156,4 +156,3 @@ export const deleteRows = (tiles: Tile[], rows: number[]): Tile[] => {
       }))
   );
 };
-

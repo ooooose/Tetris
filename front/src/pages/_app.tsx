@@ -1,11 +1,12 @@
-import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
-import { Providers } from '@/providers/Providers'
+import React from 'react';
+import '@/styles/globals.css';
+import type { AppProps } from 'next/app';
+import { Providers } from '@/providers/Providers';
 
 export default function App({ Component, pageProps }: AppProps) {
-  return(
+  return (
     <Providers>
       <Component {...pageProps} />
-    </Providers> 
-  )
+    </Providers>
+  );
 }
