@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:prettier": "prettier --check .",
+    "fix:prettier": "prettier --write .",
+    "lint:eslint": "eslint --ext \".js,.ts,.tsx\" .",
+    "fix:eslint": "npm run lint:eslint --fix",
+    "fix": "npm run fix:prettier && npm run fix:eslint"
   },
   "dependencies": {
     "@chakra-ui/next-js": "^2.1.5",
@@ -32,6 +37,7 @@
     "@types/react-redux": "^7.1.28",
     "@types/redux-logger": "^3.0.11",
     "@types/styled-components": "^5.1.28",
+    "@typescript-eslint/eslint-plugin": "^6.11.0",
     "autoprefixer": "^10",
     "babel-plugin-styled-components": "^2.1.4",
     "eslint": "^8",
