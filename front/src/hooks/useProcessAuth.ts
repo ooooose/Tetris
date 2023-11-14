@@ -1,24 +1,24 @@
-import { useState, FormEvent } from "react";
-import { useRouter } from "next/router";
-import { useQueryClient } from "react-query";
-import { useMutateAuth } from "./useMutateAuth";
+import { useState, FormEvent } from 'react';
+import { useRouter } from 'next/router';
+import { useQueryClient } from 'react-query';
+import { useMutateAuth } from './useMutateAuth';
 
 export const useProcessAuth = () => {
-  const router = useRouter()
-  const queryClient = useQueryClient()
-  const [email, setEmail] = useState('')
-  const [name, setName] = useState('')
-  const [pw, setPw] = useState('')
-  const [isLogin, setIsLogin] = useState(true)
-  const { loginMutation, registerMutation, logoutMutation } = useMutateAuth()
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [pw, setPw] = useState('');
+  const [isLogin, setIsLogin] = useState(true);
+  const { loginMutation, registerMutation, logoutMutation } = useMutateAuth();
 
-  const processAuth  = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const processAuth = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (isLogin) {
       loginMutation.mutate({
         email: email,
         password: pw,
-      })
+      });
     } else {
       await registerMutation
         .mutateAsync({
@@ -30,23 +30,23 @@ export const useProcessAuth = () => {
           loginMutation.mutate({
             email: email,
             password: pw,
-          })
+          }),
         )
         .catch(() => {
-          setName('')
-          setPw('')
-          setEmail('')
-        })
+          setName('');
+          setPw('');
+          setEmail('');
+        });
     }
-  }
+  };
 
   const logout = async () => {
-    await logoutMutation.mutateAsync()
-    queryClient.removeQueries('user')
-    router.push('/')
-  }
+    await logoutMutation.mutateAsync();
+    queryClient.removeQueries('user');
+    router.push('/');
+  };
 
-  return { 
+  return {
     email,
     setEmail,
     pw,
@@ -59,5 +59,5 @@ export const useProcessAuth = () => {
     registerMutation,
     loginMutation,
     logout,
-   }
-}
+  };
+};

@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 // import { useProcessAuth } from "../hooks/useProcessAuth";
-import { useProcessAuth } from "@/hooks/useProcessAuth";
-import { Link } from "@chakra-ui/react";
+import { useProcessAuth } from '@/hooks/useProcessAuth';
+import { Link } from '@chakra-ui/react';
 
 const AuthForm = () => {
   const {
@@ -16,27 +16,25 @@ const AuthForm = () => {
     registerMutation,
     loginMutation,
     processAuth,
-  } = useProcessAuth()
-  
+  } = useProcessAuth();
+
   if (registerMutation.isLoading || loginMutation.isLoading) {
     return (
       <div className="flex justify-center items-center flex-col min-h-screen">
         <h1 className="text-xl text-gray-600 font-mono">Loading...</h1>
       </div>
-    )
+    );
   }
   return (
     <div className="flex justify-center items-center flex-col min-h-screen text-gray-600 font-mono">
       <div className="flex items-center">
-        <span className="text-center text-3xl font-extrabold">
-          Game Park
-        </span>
+        <span className="text-center text-3xl font-extrabold">Game Park</span>
       </div>
-      <h2 className="my-6">{ isLogin ? 'ログイン画面' : '新規登録画面'}</h2>
+      <h2 className="my-6">{isLogin ? 'ログイン画面' : '新規登録画面'}</h2>
       <form onSubmit={processAuth}>
-        { !isLogin && (
+        {!isLogin && (
           <div>
-            <input 
+            <input
               className="mb-3 px-3 text-sm py-2 border border-gray-300"
               name="name"
               type="text"
@@ -46,9 +44,9 @@ const AuthForm = () => {
               value={name}
             />
           </div>
-        ) }
+        )}
         <div>
-          <input 
+          <input
             className="mb-3 px-3 text-sm py-2 border border-gray-300"
             name="email"
             type="email"
@@ -59,7 +57,7 @@ const AuthForm = () => {
           />
         </div>
         <div>
-          <input 
+          <input
             className="mb-3 px-3 text-sm py-2 border border-gray-300"
             name="password"
             type="password"
@@ -75,17 +73,15 @@ const AuthForm = () => {
             disabled={!email || !pw}
             type="submit"
           >
-            { isLogin ? "ログイン" : "新規登録" }
+            {isLogin ? 'ログイン' : '新規登録'}
           </button>
         </div>
       </form>
-      <Link
-        onClick={() => setIsLogin(!isLogin)}
-        w="100%"
-        textAlign="center"
-      >{isLogin ? "新規登録画面へ" : "ログイン画面へ"}</Link>
+      <Link onClick={() => setIsLogin(!isLogin)} w="100%" textAlign="center">
+        {isLogin ? '新規登録画面へ' : 'ログイン画面へ'}
+      </Link>
     </div>
-  )
-}
+  );
+};
 
 export default AuthForm;

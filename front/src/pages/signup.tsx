@@ -1,5 +1,5 @@
-import { Center, Box, Text } from "@chakra-ui/react";
-import AuthForm from "@/components/AuthForm";
+import { Center, Box, Text } from '@chakra-ui/react';
+import AuthForm from '@/components/AuthForm';
 
 export default function SignUp() {
   return (
@@ -8,5 +8,5 @@ export default function SignUp() {
         <AuthForm />
       </Box>
     </Center>
-  )
+  );
 }

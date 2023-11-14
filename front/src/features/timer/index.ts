@@ -10,4 +10,3 @@ export const stop = () => {
     clearInterval(timerId);
   }
 };
-
