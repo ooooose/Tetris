@@ -9,7 +9,7 @@
     "lint": "next lint",
     "lint:prettier": "prettier --check .",
     "fix:prettier": "prettier --write .",
-    "lint:eslint": "eslint --ext \".js,.ts,.tsx\" .",
+    "lint:eslint": "eslint --ext \".ts,.tsx\" .",
     "fix:eslint": "npm run lint:eslint --fix",
     "fix": "npm run fix:prettier && npm run fix:eslint"
   },
