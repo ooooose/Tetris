@@ -8,9 +8,9 @@ const Menu = () => {
   return (
     <Box>
       <Header />
-      <Center display="flex" flexDirection="column" height="100vh">
-        <Text fontSize="90px" fontWeight="bold">
-          Hello!
+      <Center display="flex" flexDirection="column" height="100vh" pt='60px'>
+        <Text fontSize="40px" fontWeight="bold">
+          好きなゲームで遊びましょう！
         </Text>
         <HStack gap={4}>
           <GameMenuCard name='テトリス' description='' path={TETRIS} />

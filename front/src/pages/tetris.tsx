@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { BLOCKS } from '@/components/Blocks';
 
@@ -144,6 +145,7 @@ const Stop = styled.button`
 `;
 const Home: NextPage = () => {
   //const [gameStart, setGameStart] = useState(false)
+  const router = useRouter();
   const [gameOver, setGameOver] = useState(false);
   const [stop, setGameStop] = useState(false);
   const [score, setScore] = useState(0);
@@ -487,10 +489,16 @@ const Home: NextPage = () => {
 
   // ゲームを一時停止する関数
   const gameStop = (): void => setGameStop(!stop);
+  const playBack = () => {
+    if (confirm('終了してもよろしいですか？')) {
+      router.push('/menu');
+    }
+  }
 
   // キーボード操作
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
+      e.preventDefault()
       switch (e.code) {
         case 'ArrowLeft':
           moveLeft();
@@ -597,7 +605,7 @@ const Home: NextPage = () => {
             {gameOver ? 'Gameover' : 'You can do it!'}
           </ScoreandLevel>
         </GameStateArea>
-        <Stop onClick={gameStop}>{stop ? 'Resume!' : 'Stop!'}</Stop>
+        <Stop onClick={playBack}>メニューに戻る</Stop>
       </Main>
     </Container>
   );
