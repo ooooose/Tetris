@@ -43,3 +43,16 @@ class UserUseCase:
                 status_code=401, detail='Invalid email or password')
         token = auth.encode_jwt(user['email'])
         return token
+
+    def update_score(self, user_id: int, score: int) -> UserOrm:
+        try:
+            user = UserRepository(session=self.session).find_user_by_id(id=user_id)
+            updated_user = UserRepository(session=self.session).update_user_score(
+                user=user, score=score
+            )
+            return updated_user
+
+        except ValueError:
+            raise HTTPException(
+                status_code=404, detail='User not found'
+            )

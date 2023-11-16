@@ -72,3 +72,15 @@ def get_user_refresh_jwt(request: Request,  response: Response):
     response.set_cookie(
             key="access_token", value=f"Bearer {new_token}", httponly=True, samesite="none", secure=True)
     return {'email': subject}
+
+@router.put("/users/{user_id}/score")
+def update_score(request: Request, response: Response, user_id: int, score: int):
+    new_token = auth.verify_csrf_update_jwt(
+        request, csrf_protect, request.headers)
+    update_user = UserUseCase(session=self.session).update_score(user_id=user_id, score=score)
+    response.set_cookie(
+        key="access_token", value=f"Bearer {new_token}", httponly=True, samesite="none", secure=True)
+    if update_user:
+        return update_user
+    raise HTTPException(
+        status_code=404, detail="Update score failed")
