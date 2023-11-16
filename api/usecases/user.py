@@ -1,11 +1,11 @@
 from decouple import config
 from fastapi import HTTPException
-from settings.auth_utils import AuthJwtCsft
+from settings.auth_utils import AuthJwtCsrf
 from repositories.user import UserRepository
 from sqlalchemy.orm import Session
 from schemas.user import UserOrm
 
-auth = AuthJwtCsft()
+auth = AuthJwtCsrf()
 
 def user_serializer(user: UserOrm) -> dict:
     return {

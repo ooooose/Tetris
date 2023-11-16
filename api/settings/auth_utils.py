@@ -7,7 +7,7 @@ from decouple import config
 JWT_KEY = config('JWT_KEY')
 
 
-class AuthJwtCsft:
+class AuthJwtCsrf:
     pwd_ctx = CryptContext(schemes=["bcrypt"], deprecated="auto")
     secret_key = JWT_KEY
 
