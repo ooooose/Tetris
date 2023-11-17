@@ -48,3 +48,11 @@ class UserRepository:
             raise HTTPException(status_code=404, detail="User not found")
 
         return user
+
+    def update_user_score(self, user: User, score: int) -> UserOrm:
+        user.score = score
+        self.session.add(user)
+        self.session.commit()
+        self.session.refresh(user)
+
+        return user

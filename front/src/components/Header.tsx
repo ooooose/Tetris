@@ -19,7 +19,7 @@ const Header = () => {
             textDecoration: 'none',
           }}
         >
-          <Text>ログアウト</Text>
+          <Text fontWeight='bold'>ログアウト</Text>
         </Link>
       </Box>
     </Box>
