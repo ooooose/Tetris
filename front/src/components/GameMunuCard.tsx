@@ -28,20 +28,14 @@ const GameMenuCard = ({ name, description, path }: Props) => {
               alt='Green double couch with wooden legs'
               borderRadius='lg'
             />
-            <Stack mt='6' spacing='3'>
-              <Heading size='md'>テトリス</Heading>
+            <Stack mt='6' spacing='3' h='100px'>
+              <Heading size='md'>Coming Soon</Heading>
               <Text>
-                落ちてくるブロックを組み合わせましょう！
-                行に隙間なくブロックが敷き詰めることができれば、その行は消えてポイントが付与されます！
+                新しいゲームを考案中です。
               </Text>
             </Stack>
           </CardBody>
-          <CardFooter>
-            <ButtonGroup spacing='2'>
-              <Button variant='solid' colorScheme='blue'>
-                今すぐ遊ぶ
-              </Button>
-            </ButtonGroup>
+          <CardFooter h='70px'>
           </CardFooter>
         </>
       );
@@ -54,11 +48,10 @@ const GameMenuCard = ({ name, description, path }: Props) => {
               alt='Green double couch with wooden legs'
               borderRadius='lg'
             />
-            <Stack mt='6' spacing='3'>
-              <Heading size='md'>テトリス</Heading>
+            <Stack mt='6' spacing='3' h='100px'>
+              <Heading size='md'>{name}</Heading>
               <Text>
-                落ちてくるブロックを組み合わせましょう！
-                行に隙間なくブロックが敷き詰めることができれば、その行は消えてポイントが付与されます！
+                {description}
               </Text>
             </Stack>
           </CardBody>
