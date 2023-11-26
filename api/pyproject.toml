@@ -17,6 +17,7 @@ python-decouple = "^3.8"
 fastapi-csrf-protect = "^0.2.1"
 pyjwt = "^2.8.0"
 passlib = "^1.7.4"
+bcrypt = "3.2.0"
 
 
 [build-system]
