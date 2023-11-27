@@ -24,3 +24,6 @@ lint:
 
 fix:
 	docker-compose run --rm front npm run fix
+
+postgres:
+	docker-compose exec db sh -c "PGPASSWORD=password psql -U postgres postgres"
