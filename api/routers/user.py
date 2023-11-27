@@ -41,8 +41,12 @@ async def signup(
     csrf_token = csrf_protect.get_csrf_from_headers(request.headers)
     csrf_protect.validate_csrf(csrf_token)
     user = jsonable_encoder(user)
-    new_user = UserUseCase(session=session).db_signup(data=user)
-    return new_user
+    print('router', user, type(user))
+    new_user = await UserUseCase(session=session).db_signup(data=user)
+    return UserOrm(
+        name=new_user.get("name"),
+        email=new_user.get("email"),
+    )
 
 @router.post("/login", response_model=SuccessMsg)
 async def login(
@@ -67,12 +71,15 @@ def logout(request: Request, response: Response, csrf_protect: CsrfProtect = Dep
     response.set_cookie(key="access_token", value="", httponly=True, samesite="none", secure=True)
     return {'message': 'Successfully logged-out.'}
 
-@router.get("/api/user", response_model=UserInfo)
+@router.get("/user", response_model=UserInfo)
 def get_user_refresh_jwt(request: Request,  response: Response):
     new_token, subject = auth.verify_update_jwt(request)
     response.set_cookie(
             key="access_token", value=f"Bearer {new_token}", httponly=True, samesite="none", secure=True)
-    return {'email': subject}
+    # current_userの取得
+    current_user = UserUseCase(session=self.session).get_current_user(email=subject)
+
+    return {'name': current_user.name, 'score': current_user.score}
 
 @router.put("/users/{user_id}/score")
 def update_score(request: Request,

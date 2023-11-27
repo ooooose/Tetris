@@ -22,7 +22,6 @@ class UserUseCase:
     async def db_signup(self, data: dict) -> dict:
         email = data.get("email")
         password = data.get("password")
-
         overlap_user = UserRepository(session=self.session).find_user_by_email(email=email)
         if overlap_user is not None:
             raise HTTPException(status_code=400, detail='Email is already taken')
@@ -30,18 +29,19 @@ class UserUseCase:
         if not password or len(password) < 6:
             raise HTTPException(status_code=400, detail='Password is too short')
 
-        user = UserRepository(session=self.session).insert_user(user_data=data)
-        new_user = UserRepository(session=self.session).find_user_by_id(id=user.id)
+        new_user = UserRepository(session=self.session).insert_user(user_data=data)
         return user_serializer(new_user)
 
     async def db_login(self, data: dict) -> str:
         email = data.get("email")
         password = data.get("password")
         user = await UserRepository(session=self.session).find_user_by_email(email=email)
-        if not user or not auth.verify_pw(password, user["password"]):
+        if not user or not auth.verify_pw(password, user.password):
             raise HTTPException(
                 status_code=401, detail='Invalid email or password')
         token = auth.encode_jwt(user['email'])
+        print("トークン", token)
+        print("aaa")
         return token
 
     def update_score(self, user_id: int, score: int) -> UserOrm:
@@ -52,6 +52,15 @@ class UserUseCase:
             )
             return updated_user
 
+        except ValueError:
+            raise HTTPException(
+                status_code=404, detail='User not found'
+            )
+
+    def get_current_user(self, email: str) -> UserOrm:
+        try:
+            user = UserRepository(session=self.session).find_user_by_email(email=email)
+            return user
         except ValueError:
             raise HTTPException(
                 status_code=404, detail='User not found'

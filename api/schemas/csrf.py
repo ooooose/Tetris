@@ -11,8 +11,8 @@ class Csrf(BaseModel):
     csrf_token: str
 
 class UserInfo(BaseModel):
-    id: Optional[str] = None
-    email: str
+    name: str
+    score: int
 
 class SuccessMsg(BaseModel):
     message: str
