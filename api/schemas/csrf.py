@@ -11,6 +11,7 @@ class Csrf(BaseModel):
     csrf_token: str
 
 class UserInfo(BaseModel):
+    id: Optional[int]
     name: str
     score: int
 

@@ -83,7 +83,7 @@ def get_user_refresh_jwt(
     # current_userの取得
     current_user = UserUseCase(session=session).get_current_user(email=subject)
 
-    return {'name': current_user.name, 'score': current_user.score}
+    return {'id': current_user.id, 'name': current_user.name, 'score': current_user.score}
 
 @router.put("/users/{user_id}/score")
 def update_score(request: Request,
