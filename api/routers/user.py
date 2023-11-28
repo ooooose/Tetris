@@ -3,6 +3,7 @@ from fastapi import APIRouter, Response, Request, Depends, HTTPException
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy import select
 from sqlalchemy.orm import Session
+from logger.logger_config import get_logger
 
 from models.user import User
 from schemas.user import User as UserCreate, UserOrm, LoginUser
@@ -13,6 +14,7 @@ from usecases.user import UserUseCase
 
 from setting import get_db
 
+logger = get_logger(__name__)
 router = APIRouter()
 auth = AuthJwtCsrf()
 
@@ -41,7 +43,6 @@ async def signup(
     csrf_token = csrf_protect.get_csrf_from_headers(request.headers)
     csrf_protect.validate_csrf(csrf_token)
     user = jsonable_encoder(user)
-    print('router', user, type(user))
     new_user = await UserUseCase(session=session).db_signup(data=user)
     return UserOrm(
         name=new_user.get("name"),
@@ -72,12 +73,15 @@ def logout(request: Request, response: Response, csrf_protect: CsrfProtect = Dep
     return {'message': 'Successfully logged-out.'}
 
 @router.get("/user", response_model=UserInfo)
-def get_user_refresh_jwt(request: Request,  response: Response):
+def get_user_refresh_jwt(
+        request: Request,
+        response: Response,
+        session: Session = Depends(get_db)):
     new_token, subject = auth.verify_update_jwt(request)
     response.set_cookie(
             key="access_token", value=f"Bearer {new_token}", httponly=True, samesite="none", secure=True)
     # current_userの取得
-    current_user = UserUseCase(session=self.session).get_current_user(email=subject)
+    current_user = UserUseCase(session=session).get_current_user(email=subject)
 
     return {'name': current_user.name, 'score': current_user.score}
 

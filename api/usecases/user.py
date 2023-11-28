@@ -1,3 +1,4 @@
+from logger.logger_config import get_logger
 from decouple import config
 from fastapi import HTTPException
 from settings.auth_utils import AuthJwtCsrf
@@ -5,6 +6,7 @@ from repositories.user import UserRepository
 from sqlalchemy.orm import Session
 from schemas.user import UserOrm
 
+logger = get_logger(__name__)
 auth = AuthJwtCsrf()
 
 def user_serializer(user: UserOrm) -> dict:
@@ -32,16 +34,19 @@ class UserUseCase:
         new_user = UserRepository(session=self.session).insert_user(user_data=data)
         return user_serializer(new_user)
 
-    async def db_login(self, data: dict) -> str:
+    def db_login(self, data: dict) -> str:
         email = data.get("email")
         password = data.get("password")
-        user = await UserRepository(session=self.session).find_user_by_email(email=email)
+
+        user = UserRepository(session=self.session).find_user_by_email(email=email)
+
         if not user or not auth.verify_pw(password, user.password):
             raise HTTPException(
                 status_code=401, detail='Invalid email or password')
-        token = auth.encode_jwt(user['email'])
-        print("トークン", token)
-        print("aaa")
+        token = auth.encode_jwt(user.email)
+
+        logger.debug(f"トークンは{token}")
+
         return token
 
     def update_score(self, user_id: int, score: int) -> UserOrm:

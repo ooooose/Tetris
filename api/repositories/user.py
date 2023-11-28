@@ -37,7 +37,6 @@ class UserRepository:
         userを登録
         """
         password = user_data.get('password')
-        print(password)
         user = User(
             name=user_data.get("name"),
             email=user_data.get('email'),
