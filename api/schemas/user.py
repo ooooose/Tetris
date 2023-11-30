@@ -14,6 +14,9 @@ class LoginUser(BaseModel):
     email: str
     password: str
 
+class Score(BaseModel):
+    score: int
+
 class UserOrm(UserBase):
     id: Optional[int]
 
