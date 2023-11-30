@@ -1,5 +1,6 @@
 from datetime import datetime
 from pydantic import BaseModel, Field
+from typing import Optional
 
 class UserBase(BaseModel):
     name: str
@@ -13,8 +14,11 @@ class LoginUser(BaseModel):
     email: str
     password: str
 
+class Score(BaseModel):
+    score: int
+
 class UserOrm(UserBase):
-    id: int
+    id: Optional[int]
 
     class Config:
-        from_attributes=True
+        orm_mode = True

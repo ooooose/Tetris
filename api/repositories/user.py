@@ -4,6 +4,9 @@ from models.user import User
 from schemas.user import UserOrm, LoginUser
 from sqlalchemy import select
 from sqlalchemy.orm import Session
+from settings.auth_utils import AuthJwtCsrf
+
+auth = AuthJwtCsrf()
 
 class UserRepository:
     def __init__(self, session: Session):
@@ -14,7 +17,7 @@ class UserRepository:
         emailと一致するUserモデルのインスタンスを返す
         """
         try:
-            user = self.session.scalar(select(User).where(User.email == email))
+            user =  self.session.scalar(select(User).where(User.email == email))
         except ValueError:
             user = None
         return user
@@ -33,7 +36,12 @@ class UserRepository:
         """
         userを登録
         """
-        user = User(**user_data)
+        password = user_data.get('password')
+        user = User(
+            name=user_data.get("name"),
+            email=user_data.get('email'),
+            password=auth.generate_hashed_pw(password=password)
+        )
         self.session.add(user)
         self.session.commit()
         self.session.refresh(user)
@@ -50,7 +58,7 @@ class UserRepository:
         return user
 
     def update_user_score(self, user: User, score: int) -> UserOrm:
-        user.score = score
+        user.score += score
         self.session.add(user)
         self.session.commit()
         self.session.refresh(user)
