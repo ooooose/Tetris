@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from logger.logger_config import get_logger
 
 from models.user import User
-from schemas.user import User as UserCreate, UserOrm, LoginUser
+from schemas.user import User as UserCreate, UserOrm, LoginUser, Score
 from schemas.csrf import SuccessMsg, UserInfo, Csrf
 from settings.auth_utils import AuthJwtCsrf
 from fastapi_csrf_protect import CsrfProtect
@@ -89,11 +89,13 @@ def get_user_refresh_jwt(
 def update_score(request: Request,
                  response: Response,
                  user_id: int,
-                 score: int,
+                 data: Score,
+                session: Session = Depends(get_db),
                  csrf_protect: CsrfProtect = Depends()):
     new_token = auth.verify_csrf_update_jwt(
         request, csrf_protect, request.headers)
-    update_user = UserUseCase(session=self.session).update_score(user_id=user_id, score=score)
+    score = jsonable_encoder(data)
+    update_user = UserUseCase(session=session).update_score(user_id=user_id, score=score.get('score'))
     response.set_cookie(
         key="access_token", value=f"Bearer {new_token}", httponly=True, samesite="none", secure=True)
     if update_user:

@@ -58,7 +58,7 @@ class UserRepository:
         return user
 
     def update_user_score(self, user: User, score: int) -> UserOrm:
-        user.score = score
+        user.score += score
         self.session.add(user)
         self.session.commit()
         self.session.refresh(user)
