@@ -5,9 +5,9 @@ import { useProcessAuth } from '@/hooks/useProcessAuth';
 type Props = {
   name: string | undefined;
   score: number | undefined;
-}
+};
 
-const Header = ({name, score}: Props) => {
+const Header = ({ name, score }: Props) => {
   const { logout } = useProcessAuth();
 
   return (
@@ -19,14 +19,18 @@ const Header = ({name, score}: Props) => {
       </Box>
       <Box float="right" lineHeight="60px" mr={5}>
         <HStack gap="20px">
-          <Text fontWeight="bold">ようこそ{name}さん：スコア{score}点</Text>
+          <Text fontWeight="bold">
+            ようこそ{name}さん：スコア{score}点
+          </Text>
           <Link
             onClick={logout}
             _hover={{
               textDecoration: 'none',
             }}
           >
-            <Text fontWeight='bold' color="red">ログアウト</Text>
+            <Text fontWeight="bold" color="red">
+              ログアウト
+            </Text>
           </Link>
         </HStack>
       </Box>

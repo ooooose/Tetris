@@ -1,1 +1,1 @@
-export const TETRIS = '/tetris'
+export const TETRIS = '/tetris';

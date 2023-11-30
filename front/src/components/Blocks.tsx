@@ -164,4 +164,4 @@ export const BLOCKS: number[][][][] = [
       [0, 0, 0],
     ],
   ],
-]
+];

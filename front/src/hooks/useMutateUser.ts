@@ -7,34 +7,38 @@ import { toggleCsrfState } from '@/slices/appSlice';
 type UpdateUser = {
   id: number | undefined;
   score: number;
-}
+};
 
 export const useMutateUser = () => {
-  const router = useRouter()
-  const dispatch = useAppDispatch()
+  const router = useRouter();
+  const dispatch = useAppDispatch();
 
-  const addScoreMutation = useMutation(({id, score}: UpdateUser) => 
-    axios.put(`${process.env.NEXT_PUBLIC_API_URL}/users/${id}/score`, {
-      score: score,
-    }, 
-    {
-      withCredentials: true,
-    }),
+  const addScoreMutation = useMutation(
+    ({ id, score }: UpdateUser) =>
+      axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/${id}/score`,
+        {
+          score: score,
+        },
+        {
+          withCredentials: true,
+        },
+      ),
     {
       onError: (err: any) => {
-        alert(`${err.response.data.detail}\n${err.message}`)
+        alert(`${err.response.data.detail}\n${err.message}`);
         if (
           err.response.data.detail === 'The JWT has expired' ||
           err.response.data.detail === 'The CSRF token has expired.'
         ) {
-          dispatch(toggleCsrfState())
-          router.push('/')
+          dispatch(toggleCsrfState());
+          router.push('/');
         }
-      }
-    }
-  )
+      },
+    },
+  );
 
   return {
     addScoreMutation,
-  }
-}
+  };
+};
