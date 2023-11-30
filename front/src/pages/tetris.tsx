@@ -3,6 +3,8 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { BLOCKS } from '@/components/Blocks';
+import { useMutateUser } from '@/hooks/useMutateUser';
+import { useQueryUser } from '@/hooks/useQueryUser';
 
 const COLORS = [
   'black',
@@ -17,7 +19,7 @@ const COLORS = [
 
 const Container = styled.div`
   height: 100vh;
-  background-color: #b5e1ef;
+  background-color: #c9ace6;
 `;
 const Main = styled.div`
   position: absolute;
@@ -27,10 +29,6 @@ const Main = styled.div`
   height: 700px;
   margin: 0;
   margin-right: -50%;
-  background-color: #4995ff;
-  border: solid 5px;
-  border-color: #fff #777 #777 #fff;
-  border-radius: 5%;
   transform: translate(-50%, -50%);
 `;
 const BlockArea = styled.div`
@@ -154,6 +152,8 @@ const Home: NextPage = () => {
   const [checkHold, setCheckHold] = useState(false);
   const [checkOne, setCheckOne] = useState(false);
   const [checkReset, setCheckReset] = useState(false);
+  const { addScoreMutation } = useMutateUser()
+  const { data: dataUser } = useQueryUser()
 
   //０から６のランダムの配列を作る関数
   const createRandomNumbers = (): number[] => {
@@ -298,6 +298,11 @@ const Home: NextPage = () => {
         newBoard.unshift(b);
       } else {
         count++;
+        console.log(dataUser?.id)
+        addScoreMutation.mutate({
+          id: dataUser?.id,
+          score: 10
+        })
         setScore((c) => c + 1);
       }
     }
@@ -588,21 +593,21 @@ const Home: NextPage = () => {
         </HoldMinoArea>
         <ScoreArea>
           <ScoreandLevel>
-            Score
+            スコア
             <br />
             {score}
           </ScoreandLevel>
         </ScoreArea>
         <LevelArea>
           <ScoreandLevel>
-            Level
+            レベル
             <br />
             {level}
           </ScoreandLevel>
         </LevelArea>
         <GameStateArea>
           <ScoreandLevel>
-            {gameOver ? 'Gameover' : 'You can do it!'}
+            {gameOver ? 'GameOver' : '進行中'}
           </ScoreandLevel>
         </GameStateArea>
         <Stop onClick={playBack}>メニューに戻る</Stop>

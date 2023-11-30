@@ -2,9 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '@/stores/app/store';
 
 export interface AppState {
+  addScore: number;
   csrfTokenExp: boolean;
 }
 const initialState: AppState = {
+  addScore: 0,
   csrfTokenExp: false,
 };
 

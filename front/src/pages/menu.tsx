@@ -1,13 +1,15 @@
 import React from 'react';
 import { Center, Text, Box, HStack } from '@chakra-ui/react';
 import Header from '@/components/Header';
+import { useQueryUser } from '@/hooks/useQueryUser';
 import GameMenuCard from '@/components/GameMunuCard';
 import { TETRIS } from '@/utils/urls';
 
 const Menu = () => {
+  const { data: dataUser } = useQueryUser()
   return (
     <Box>
-      <Header />
+      <Header name={dataUser?.name} score={dataUser?.score} />
       <Center display="flex" flexDirection="column" height="100vh" pt='60px'>
         <Text fontSize="40px" fontWeight="bold">
           好きなゲームで遊びましょう！

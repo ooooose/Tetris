@@ -1,8 +1,13 @@
 import React from 'react';
-import { Box, Text, Link } from '@chakra-ui/react';
+import { Box, Text, Link, HStack } from '@chakra-ui/react';
 import { useProcessAuth } from '@/hooks/useProcessAuth';
 
-const Header = () => {
+type Props = {
+  name: string | undefined;
+  score: number | undefined;
+}
+
+const Header = ({name, score}: Props) => {
   const { logout } = useProcessAuth();
 
   return (
@@ -13,14 +18,17 @@ const Header = () => {
         </Text>
       </Box>
       <Box float="right" lineHeight="60px" mr={5}>
-        <Link
-          onClick={logout}
-          _hover={{
-            textDecoration: 'none',
-          }}
-        >
-          <Text fontWeight='bold'>ログアウト</Text>
-        </Link>
+        <HStack gap="20px">
+          <Text fontWeight="bold">ようこそ{name}さん：スコア{score}点</Text>
+          <Link
+            onClick={logout}
+            _hover={{
+              textDecoration: 'none',
+            }}
+          >
+            <Text fontWeight='bold' color="red">ログアウト</Text>
+          </Link>
+        </HStack>
       </Box>
     </Box>
   );
