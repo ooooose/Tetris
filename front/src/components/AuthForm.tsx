@@ -1,6 +1,7 @@
 import React from 'react';
 import { useProcessAuth } from '@/hooks/useProcessAuth';
-import { Link } from '@chakra-ui/react';
+import { Link as ChakraLink, Text } from '@chakra-ui/react';
+import Link from 'next/link';
 
 const AuthForm = () => {
   const {
@@ -25,10 +26,12 @@ const AuthForm = () => {
     );
   }
   return (
-    <div className="flex justify-center items-center flex-col min-h-screen text-gray-600 font-mono">
-      <div className="flex items-center">
-        <span className="text-center text-3xl font-extrabold">Game Park</span>
-      </div>
+    <div className="flex justify-center items-center flex-col min-h-screen text-gray-600">
+      <Text display='flex' >
+        <Link href='/'>
+          <span className="text-center text-3xl font-extrabold">Game Park</span>
+        </Link>
+      </Text>
       <h2 className="my-6">{isLogin ? 'ログイン画面' : '新規登録画面'}</h2>
       <form onSubmit={processAuth}>
         {!isLogin && (
@@ -76,9 +79,9 @@ const AuthForm = () => {
           </button>
         </div>
       </form>
-      <Link onClick={() => setIsLogin(!isLogin)} w="100%" textAlign="center">
+      <ChakraLink onClick={() => setIsLogin(!isLogin)} w="100%" textAlign="center">
         {isLogin ? '新規登録画面へ' : 'ログイン画面へ'}
-      </Link>
+      </ChakraLink>
     </div>
   );
 };

@@ -22,3 +22,18 @@ export const useQueryUser = () => {
     onError: () => router.push('/'),
   });
 };
+
+export const useQueryRankingUsers = () => {
+  const getRanking = async () => {
+    const { data } = await axios.get<UserInfo[]>(
+      `${process.env.NEXT_PUBLIC_API_URL}/ranking`,
+    );
+    return data;
+  };
+
+  return useQuery({
+    queryKey: 'rankingUsers',
+    queryFn: getRanking,
+    staleTime: Infinity,
+  });
+}
