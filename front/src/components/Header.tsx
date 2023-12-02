@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text, Link, HStack, Button } from '@chakra-ui/react';
+import { Box, Text, Link, HStack } from '@chakra-ui/react';
 import { useProcessAuth } from '@/hooks/useProcessAuth';
 
 type Props = {

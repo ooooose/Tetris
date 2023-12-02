@@ -10,7 +10,6 @@ import {
   Heading,
   Text,
   ButtonGroup,
-  Button,
 } from '@chakra-ui/react';
 
 const GameMenuCard = () => {
@@ -34,11 +33,9 @@ const GameMenuCard = () => {
         </CardBody>
         <CardFooter>
           <ButtonGroup spacing="2">
-          <button
-            className="disabled:opacity-40 py-2 px-4 rounded text-white bg-indigo-600"
-          >
-            <Link href={TETRIS}>今すぐ遊ぶ</Link>
-          </button>
+            <button className="disabled:opacity-40 py-2 px-4 rounded text-white bg-indigo-600">
+              <Link href={TETRIS}>今すぐ遊ぶ</Link>
+            </button>
           </ButtonGroup>
         </CardFooter>
       </>

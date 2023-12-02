@@ -1,4 +1,4 @@
-import { extendTheme } from '@chakra-ui/theme-utils'
+import { extendTheme } from '@chakra-ui/theme-utils';
 
 /**
  * chakra-uiのテーマの変数定芸
@@ -97,4 +97,4 @@ export const theme = extendTheme({
       },
     },
   },
-})
+});
