@@ -33,9 +33,11 @@ const GameMenuCard = () => {
         </CardBody>
         <CardFooter>
           <ButtonGroup spacing="2">
-            <Button variant="solid" colorScheme="blue">
-              <Link href={TETRIS}>今すぐ遊ぶ</Link>
-            </Button>
+          <button
+            className="disabled:opacity-40 py-2 px-4 rounded text-white bg-indigo-600"
+          >
+            <Link href={TETRIS}>今すぐ遊ぶ</Link>
+          </button>
           </ButtonGroup>
         </CardFooter>
       </>
