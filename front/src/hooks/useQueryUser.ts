@@ -36,4 +36,4 @@ export const useQueryRankingUsers = () => {
     queryFn: getRanking,
     staleTime: Infinity,
   });
-}
+};

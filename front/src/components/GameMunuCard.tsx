@@ -19,14 +19,16 @@ const GameMenuCard = () => {
       <>
         <CardBody>
           <Image
-            src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
+            src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
             alt="Green double couch with wooden legs"
             borderRadius="lg"
           />
           <Stack mt="6" spacing="3" h="100px">
             <Heading size="md">テトリス</Heading>
-            <Text>落ちてくるブロックを組み合わせましょう！
-                行に隙間なくブロックが敷き詰めることができれば、その行は消えてポイントが付与されます！</Text>
+            <Text>
+              落ちてくるブロックを組み合わせましょう！
+              行に隙間なくブロックが敷き詰めることができれば、その行は消えてポイントが付与されます！
+            </Text>
           </Stack>
         </CardBody>
         <CardFooter>
@@ -38,7 +40,7 @@ const GameMenuCard = () => {
         </CardFooter>
       </>
     );
-  }
+  };
   return <Card maxW="sm">{renderCardContent()}</Card>;
 };
 

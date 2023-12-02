@@ -24,8 +24,8 @@ const Header = ({ name, score }: Props) => {
           </Text>
           <Link
             onClick={() => {
-              if (confirm("ログアウトしますか？")){
-                logout()
+              if (confirm('ログアウトしますか？')) {
+                logout();
               }
             }}
             _hover={{

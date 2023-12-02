@@ -3,7 +3,6 @@ import { Center, Text, Box, HStack } from '@chakra-ui/react';
 import Header from '@/components/Header';
 import { useQueryUser } from '@/hooks/useQueryUser';
 import GameMenuCard from '@/components/GameMunuCard';
-import { TETRIS } from '@/utils/urls';
 
 const Menu = () => {
   const { data: dataUser } = useQueryUser();

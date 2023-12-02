@@ -27,9 +27,11 @@ const AuthForm = () => {
   }
   return (
     <div className="flex justify-center items-center flex-col min-h-screen text-gray-600">
-      <Text display='flex' >
-        <Link href='/'>
-          <span className="text-center text-3xl font-extrabold">Game Center</span>
+      <Text display="flex">
+        <Link href="/">
+          <span className="text-center text-3xl font-extrabold">
+            Game Center
+          </span>
         </Link>
       </Text>
       <h2 className="my-6">{isLogin ? 'ログイン画面' : '新規登録画面'}</h2>
@@ -79,7 +81,11 @@ const AuthForm = () => {
           </button>
         </div>
       </form>
-      <ChakraLink onClick={() => setIsLogin(!isLogin)} w="100%" textAlign="center">
+      <ChakraLink
+        onClick={() => setIsLogin(!isLogin)}
+        w="100%"
+        textAlign="center"
+      >
         {isLogin ? '新規登録画面へ' : 'ログイン画面へ'}
       </ChakraLink>
     </div>
