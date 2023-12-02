@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text, Link, HStack } from '@chakra-ui/react';
+import { Box, Text, Link, HStack, Button } from '@chakra-ui/react';
 import { useProcessAuth } from '@/hooks/useProcessAuth';
 
 type Props = {
@@ -32,7 +32,7 @@ const Header = ({ name, score }: Props) => {
               textDecoration: 'none',
             }}
           >
-            <Text fontWeight="bold" color="red">
+            <Text fontWeight="bold" color="gray">
               ログアウト
             </Text>
           </Link>
