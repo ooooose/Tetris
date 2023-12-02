@@ -297,7 +297,6 @@ const Home: NextPage = () => {
         newBoard.unshift(b);
       } else {
         count++;
-        console.log(dataUser?.id);
         addScoreMutation.mutate({
           id: dataUser?.id,
           score: 10,
@@ -492,7 +491,7 @@ const Home: NextPage = () => {
   };
 
   const playBack = () => {
-    if (confirm('終了してもよろしいですか？')) {
+    if (confirm(`終了してよろしいですか？`)) {
       router.push('/menu');
     }
   };
@@ -592,7 +591,7 @@ const Home: NextPage = () => {
           <ScoreandLevel>
             スコア
             <br />
-            {score}
+            {score * 10}
           </ScoreandLevel>
         </ScoreArea>
         <LevelArea>

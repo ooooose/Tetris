@@ -29,7 +29,7 @@ const AuthForm = () => {
     <div className="flex justify-center items-center flex-col min-h-screen text-gray-600">
       <Text display='flex' >
         <Link href='/'>
-          <span className="text-center text-3xl font-extrabold">Game Park</span>
+          <span className="text-center text-3xl font-extrabold">Game Center</span>
         </Link>
       </Text>
       <h2 className="my-6">{isLogin ? 'ログイン画面' : '新規登録画面'}</h2>

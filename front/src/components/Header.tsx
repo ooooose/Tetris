@@ -14,7 +14,7 @@ const Header = ({ name, score }: Props) => {
     <Box w="100%" h="60px" backgroundColor="blue.200" position="fixed">
       <Box float="left" ml={5} lineHeight="60px">
         <Text fontSize="30px" fontWeight="bold">
-          Game Park
+          Game Center
         </Text>
       </Box>
       <Box float="right" lineHeight="60px" mr={5}>
@@ -23,7 +23,11 @@ const Header = ({ name, score }: Props) => {
             ようこそ{name}さん：スコア{score}点
           </Text>
           <Link
-            onClick={logout}
+            onClick={() => {
+              if (confirm("ログアウトしますか？")){
+                logout()
+              }
+            }}
             _hover={{
               textDecoration: 'none',
             }}
