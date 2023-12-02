@@ -11,6 +11,7 @@ from schemas.csrf import SuccessMsg, UserInfo, Csrf
 from settings.auth_utils import AuthJwtCsrf
 from fastapi_csrf_protect import CsrfProtect
 from usecases.user import UserUseCase
+from repositories.user import UserRepository
 
 from setting import get_db
 
@@ -25,7 +26,7 @@ async def get_ranking(db: Session = Depends(get_db)):
     （現在は、User一覧を取得するエンドポイントとして暫定的に作成している）
     """
 
-    users = db.scalars(select(User)).all()
+    users = UserRepository(session=db).get_ranking_users()
     return users
 
 @router.get("/csrf-token", response_model=Csrf)

@@ -3,7 +3,6 @@ import { Center, Text, Box, HStack } from '@chakra-ui/react';
 import Header from '@/components/Header';
 import { useQueryUser } from '@/hooks/useQueryUser';
 import GameMenuCard from '@/components/GameMunuCard';
-import { TETRIS } from '@/utils/urls';
 
 const Menu = () => {
   const { data: dataUser } = useQueryUser();
@@ -15,14 +14,7 @@ const Menu = () => {
           好きなゲームで遊びましょう！
         </Text>
         <HStack gap={4}>
-          <GameMenuCard
-            name="テトリス"
-            description="落ちてくるブロックを組み合わせましょう！　
-                行に隙間なくブロックが敷き詰めることができれば、その行は消えてポイントが付与されます！"
-            path={TETRIS}
-          />
-          <GameMenuCard name="" />
-          <GameMenuCard name="" />
+          <GameMenuCard />
         </HStack>
       </Center>
     </Box>

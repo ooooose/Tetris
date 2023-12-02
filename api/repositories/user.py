@@ -2,7 +2,7 @@ from fastapi import HTTPException
 from typing import Union
 from models.user import User
 from schemas.user import UserOrm, LoginUser
-from sqlalchemy import select
+from sqlalchemy import select, desc
 from sqlalchemy.orm import Session
 from settings.auth_utils import AuthJwtCsrf
 
@@ -64,3 +64,9 @@ class UserRepository:
         self.session.refresh(user)
 
         return user
+
+    def get_ranking_users(self) -> list[UserOrm]:
+        stmt = select(User).order_by(desc(User.score)).limit(5)
+        users = self.session.scalars(stmt).all()
+
+        return users
