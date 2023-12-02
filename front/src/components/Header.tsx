@@ -32,7 +32,7 @@ const Header = ({ name, score }: Props) => {
               textDecoration: 'none',
             }}
           >
-            <Text fontWeight="bold" color="red">
+            <Text fontWeight="bold" color="gray">
               ログアウト
             </Text>
           </Link>
