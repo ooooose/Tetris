@@ -45,8 +45,6 @@ class UserUseCase:
                 status_code=401, detail='Invalid email or password')
         token = auth.encode_jwt(user.email)
 
-        logger.debug(f"トークンは{token}")
-
         return token
 
     def update_score(self, user_id: int, score: int) -> UserOrm:
