@@ -1,3 +1,5 @@
+from decouple import config
+
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -8,9 +10,10 @@ from fastapi_csrf_protect.exceptions import CsrfProtectError
 
 app = FastAPI()
 
-# TODO: URLは環境変数として管理するよう修正
+NEXT_APP_URL = config("NEXT_APP_URL")
+
 origins = [
-  "http://localhost:8000",
+  NEXT_APP_URL,
 ]
 
 app.add_middleware(
