@@ -1,6 +1,9 @@
 up:
 	docker-compose up -d
 
+up-prod:
+	docker-compose -f docker-compose.prod.yml up -d
+
 build:
 	docker-compose build
 
@@ -10,11 +13,26 @@ build-prod:
 down:
 	docker-compose down
 
+down-prod:
+	docker-compose -f docker-compose.prod.yml down
+
 ps:
 	docker-compose ps -a
 
+ps-prod:
+	docker-compose -f docker-compose.prod.yml ps
+
+setup:
+	docker-compose run --rm api poetry install --no-root
+
+setup-prod:
+	docker-compose -f docker-compose.prod.yml run --rm api-prod poetry install --no-root
+
 logs:
 	docker-compose logs -f api
+
+logs-prod:
+	docker-compose -f docker-compose.prod.yml logs -f api-prod
 
 shell:
 	docker-compose exec api bash
