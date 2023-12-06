@@ -16,6 +16,7 @@ services:
   web:
     build:
       context: ./nginx
+      dockerfile: Dockerfile
     volumes:
       - tmp-data:/src/tmp
     ports:
