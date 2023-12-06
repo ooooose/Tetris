@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  api-prod:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.prod
+    volumes:
+      - ./.dockervenv:/src/.venv
+      - ./api:/src
+    ports:
+      - 8000:8000
+    tty: true
+    stdin_open: true
+
+  web:
+    build:
+      context: ./nginx
+    volumes:
+      - tmp-data:/src/tmp
+    ports:
+      - 80:80
+    depends_on:
+      - api-prod
+
+volumes:
+  postgres_data:
+  tmp-data:
