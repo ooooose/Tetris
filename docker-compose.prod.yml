@@ -9,17 +9,19 @@ services:
       - ./.dockervenv:/src/.venv
       - ./api:/src
     ports:
-      - 8000:8000
+      - '8000'
     tty: true
     stdin_open: true
 
   web:
     build:
       context: ./nginx
+      dockerfile: Dockerfile
     volumes:
-      - tmp-data:/src/tmp
+      - ./nginx/conf:/etc/nginx/conf.d
+    restart: always
     ports:
-      - 80:80
+      - 8000:80
     depends_on:
       - api-prod
 
