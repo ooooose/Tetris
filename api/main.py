@@ -36,6 +36,10 @@ def csrf_protect_exception_handler(request: Request, exc: CsrfProtectError):
         status_code=exc.status_code,
         content={'detail': exc.message})
 
-@app.get("/hello")
+@app.get("/")
 async def hello():
     return {"message": "hello!!"}
+
+@app.get("/healthcheck")
+async def healthcheck():
+    return {"message": "healthcheck"}
